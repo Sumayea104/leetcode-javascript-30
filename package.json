@@ -1,0 +1,14 @@
+{
+  "name": "leetcode-javascript-30",
+  "version": "1.0.0",
+  "description": "LeetCode 30 Days of JavaScript Challenge",
+
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["leetcode", "javascript", "es6", "closures", "promises"],
+  "author": "Sumayea Rahman",
+  "license": "ISC",
+  "type": "module"
+}
