@@ -1,6 +1,6 @@
 # 📝 Counter II (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/counter-ii/?envType=study-plan-v2&envId=30-days-of-javascript)
+🔗 [Problem Link](https://leetcode.com/problems/counter-ii)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen) ![Language](https://img.shields.io/badge/Language-JavaScript-blue)
 
@@ -8,7 +8,7 @@
 No tags found
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
