@@ -8,7 +8,7 @@
 Array, Hash Table, Divide and Conquer, Segment Tree, Merge Sort, Counting, Prefix Sum
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
