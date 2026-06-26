@@ -1,6 +1,6 @@
 # 📝 Count Subarrays With Majority Element II (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/count-subarrays-with-majority-element-ii/solutions/8358773/0ms-on-time-space-running-balance-beats-1mzk4/)
+🔗 [Problem Link](https://leetcode.com/problems/count-subarrays-with-majority-element-ii/)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Hard-red) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
