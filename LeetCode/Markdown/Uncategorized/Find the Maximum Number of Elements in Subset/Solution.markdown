@@ -1,0 +1,44 @@
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+
+# Complexity
+- Time complexity:
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity:
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```typescript []
+function maximumLength(nums: number[]): number {
+    const cnt = new Map<number, number>();
+
+    for (const num of nums) {
+        cnt.set(num, (cnt.get(num) ?? 0) + 1);
+    }
+
+    const oneCnt = cnt.get(1) ?? 0;
+    let ans = oneCnt % 2 ? oneCnt : oneCnt - 1;
+
+    for (const num of cnt.keys()) {
+        if (num === 1) continue;
+
+        let res = 0;
+        let x = num;
+        let count = cnt.get(x);
+
+        while (count !== undefined && count > 1) {
+            res += 2;
+            x *= x;
+            count = cnt.get(x);
+        }
+
+        ans = Math.max(ans, res + (count !== undefined ? 1 : -1));
+    }
+
+    return ans;
+}
+```
