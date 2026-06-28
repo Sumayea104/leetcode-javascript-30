@@ -1,6 +1,6 @@
 # 📝 Maximum Element After Decreasing and Rearranging (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging/?envType=daily-question&envId=2026-06-28)
+🔗 [Problem Link](https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Greedy, Sorting
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
