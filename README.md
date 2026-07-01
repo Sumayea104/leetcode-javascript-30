@@ -2,7 +2,7 @@
 
 A structured workspace tracking my journey through LeetCode's official **30 Days of JavaScript** study plan. This repository serves as a deep dive into JavaScript engine mechanics, core execution contexts, asynchronous workflows, and foundational frontend performance utilities.
 ---
-# Primary object was 30 Days of JavaScript Mastery but later it bocome playground due to leetsync extension
+## Primary object was 30 Days of JavaScript Mastery but later it become playground due to leetsync extension
 ---
 ## 🛠️ Project Evolution & Setup
 
