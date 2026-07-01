@@ -1,6 +1,6 @@
 # 📝 Two Sum (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/two-sum)
+🔗 [Problem Link](https://leetcode.com/problems/two-sum/editorial/?envType=problem-list-v2&envId=oizxjoit)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen) ![Language](https://img.shields.io/badge/Language-JavaScript-blue)
 
