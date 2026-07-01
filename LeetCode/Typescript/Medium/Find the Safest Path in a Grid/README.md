@@ -1,6 +1,6 @@
 # 📝 Find the Safest Path in a Grid (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/find-the-safest-path-in-a-grid/?envType=daily-question&envId=2026-07-01)
+🔗 [Problem Link](https://leetcode.com/problems/find-the-safest-path-in-a-grid)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Binary Search, Breadth-First Search, Union-Find, Heap (Priority Queue), Matrix
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
