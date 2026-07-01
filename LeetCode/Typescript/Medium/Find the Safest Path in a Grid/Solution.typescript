@@ -28,43 +28,39 @@ function maximumSafenessFactor(grid: number[][]): number {
         }
     }
 
-    // Helper: Standard BFS validating if a path exists given a minimum safety bound
-    function isValidPath(minRequiredSafety: number): boolean {
-        if (dist[0][0] < minRequiredSafety) return false;
-        
-        const pathQueue: [number, number][] = [[0, 0]];
-        const visited = Array.from({ length: n }, () => Array(n).fill(false));
-        visited[0][0] = true;
-        
-        let pHead = 0;
-        while (pHead < pathQueue.length) {
-            const [r, c] = pathQueue[pHead++];
-            if (r === n - 1 && c === n - 1) return true;
+    // Step 2: Modified Dijkstra using Buckets instead of a Heap
+    // Max possible distance in an NxN grid is 2 * n
+    const maxPossibleDist = 2 * n;
+    const buckets: [number, number][][] = Array.from({ length: maxPossibleDist + 1 }, () => []);
+    
+    // Push starting cell to its corresponding safety bucket
+    const startSafeness = dist[0][0];
+    buckets[startSafeness].push([0, 0]);
+
+    const visited = Array.from({ length: n }, () => Array(n).fill(false));
+    visited[0][0] = true;
+
+    // Start scanning buckets from highest safety down to 0
+    for (let b = startSafeness; b >= 0; b--) {
+        while (buckets[b].length > 0) {
+            const [r, c] = buckets[b].pop()!;
+
+            if (r === n - 1 && c === n - 1) {
+                return b; // Found the destination, 'b' is the max-min safeness factor
+            }
 
             for (const [dr, dc] of directions) {
                 const nr = r + dr, nc = c + dc;
-                if (nr >= 0 && nr < n && nc >= 0 && nc < n && !visited[nr][nc] && dist[nr][nc] >= minRequiredSafety) {
+                if (nr >= 0 && nr < n && nc >= 0 && nc < n && !visited[nr][nc]) {
                     visited[nr][nc] = true;
-                    pathQueue.push([nr, nc]);
+                    
+                    // The safety of the next cell is bounded by the current path safety 'b'
+                    const nextSafe = Math.min(b, dist[nr][nc]);
+                    buckets[nextSafe].push([nr, nc]);
                 }
             }
         }
-        return false;
     }
 
-    // Step 2: Binary Search on the maximum possible safeness factor
-    let low = 0, high = Math.min(dist[0][0], dist[n - 1][n - 1]);
-    let result = 0;
-
-    while (low <= high) {
-        const mid = Math.floor((low + high) / 2);
-        if (isValidPath(mid)) {
-            result = mid; // This safety level is viable, see if we can go higher
-            low = mid + 1;
-        } else {
-            high = mid - 1; // Too close to a thief, lower the requirement
-        }
-    }
-
-    return result;
+    return 0;
 }
