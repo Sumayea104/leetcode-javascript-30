@@ -1,6 +1,6 @@
 # 📝 Find the Safest Path in a Grid (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/find-the-safest-path-in-a-grid)
+🔗 [Problem Link](https://leetcode.com/problems/find-the-safest-path-in-a-grid/?envType=daily-question&envId=2026-07-01)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
