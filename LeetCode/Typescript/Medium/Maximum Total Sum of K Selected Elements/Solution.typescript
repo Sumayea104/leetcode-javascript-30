@@ -1,0 +1,12 @@
+function maxSum(nums: number[], k: number, mul: number): number {
+    nums.sort((a, b) => b - a);
+
+    let totalSum = 0;
+
+    for (let i = 0; i < k; i++) {
+        const currentMul = Math.max(1, mul - i);
+        totalSum += nums[i] * currentMul;
+    }
+
+    return totalSum;
+}
