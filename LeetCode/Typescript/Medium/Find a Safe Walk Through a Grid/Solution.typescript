@@ -1,0 +1,47 @@
+function findSafeWalk(grid: number[][], health: number): boolean {
+    const m = grid.length;
+    const n = grid[0].length;
+    
+    // Track minimum health lost to reach each cell
+    const minLost = Array.from({ length: m }, () => Array(n).fill(Infinity));
+    
+    // Deque stores [row, col]
+    const deque: [number, number][] = [];
+    
+    // Initialize starting point
+    minLost[0][0] = grid[0][0];
+    deque.push([0, 0]);
+    
+    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+    
+    while (deque.length > 0) {
+        const [r, c] = deque.shift()!; // Pop from front
+        
+        // If we reached the destination, we can early exit if we want, 
+        // but 0-1 BFS guarantees optimal path processing order anyway.
+        if (r === m - 1 && c === n - 1) break;
+        
+        for (const [dr, dc] of directions) {
+            const nr = r + dr;
+            const nc = c + dc;
+            
+            if (nr >= 0 && nr < m && nc >= 0 && nc < n) {
+                const cost = grid[nr][nc];
+                const newLost = minLost[r][c] + cost;
+                
+                if (newLost < minLost[nr][nc]) {
+                    minLost[nr][nc] = newLost;
+                    
+                    if (cost === 0) {
+                        deque.unshift([nr, nc]); // 0 weight -> Push to FRONT
+                    } else {
+                        deque.push([nr, nc]);    // 1 weight -> Push to BACK
+                    }
+                }
+            }
+        }
+    }
+    
+    // Remaining health must be >= 1
+    return health - minLost[m - 1][n - 1] >= 1;
+}
