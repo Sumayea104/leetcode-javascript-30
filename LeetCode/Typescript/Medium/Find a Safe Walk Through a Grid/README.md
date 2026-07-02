@@ -1,6 +1,6 @@
 # 📝 Find a Safe Walk Through a Grid (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/find-a-safe-walk-through-a-grid/?envType=daily-question&envId=2026-07-02)
+🔗 [Problem Link](https://leetcode.com/problems/find-a-safe-walk-through-a-grid)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Breadth-First Search, Graph Theory, Heap (Priority Queue), Matrix, Shortest Path
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
