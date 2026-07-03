@@ -1,6 +1,6 @@
 # 📝 Network Recovery Pathways (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/network-recovery-pathways/?envType=daily-question&envId=2026-07-03)
+🔗 [Problem Link](https://leetcode.com/problems/network-recovery-pathways)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Hard-red) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Binary Search, Dynamic Programming, Graph Theory, Topological Sort, Heap (Priority Queue), Shortest Path
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
