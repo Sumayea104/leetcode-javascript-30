@@ -1,0 +1,71 @@
+function findMaxPathScore(edges: number[][], online: boolean[], k: number): number {
+    const n = online.length;
+    
+    const adj: Array<Array<[number, number]>> = Array.from({ length: n }, () => []);
+    const inDegree = new Array(n).fill(0);
+    let maxEdgeCost = 0;
+    
+    for (const [u, v, cost] of edges) {
+        adj[u].push([v, cost]);
+        inDegree[v]++;
+        if (cost > maxEdgeCost) {
+            maxEdgeCost = cost;
+        }
+    }
+    
+    const topoOrder: number[] = [];
+    const queue: number[] = [];
+    let head = 0;
+    
+    for (let i = 0; i < n; i++) {
+        if (inDegree[i] === 0) queue.push(i);
+    }
+    
+    while (head < queue.length) {
+        const u = queue[head++];
+        topoOrder.push(u);
+        for (const [v] of adj[u]) {
+            inDegree[v]--;
+            if (inDegree[v] === 0) queue.push(v);
+        }
+    }
+    
+    function check(mid: number): boolean {
+        const dp = new Array(n).fill(Infinity);
+        dp[0] = 0;
+        
+        for (const u of topoOrder) {
+            if (dp[u] === Infinity) continue;
+            
+            if (u !== 0 && u !== n - 1 && !online[u]) continue;
+            
+            for (const [v, cost] of adj[u]) {
+                if (cost < mid) continue;
+                
+                if (v !== 0 && v !== n - 1 && !online[v]) continue;
+                
+                if (dp[u] + cost < dp[v]) {
+                    dp[v] = dp[u] + cost;
+                }
+            }
+        }
+        
+        return dp[n - 1] <= k;
+    }
+    
+    let low = 0;
+    let high = maxEdgeCost; 
+    let ans = -1;
+    
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        if (check(mid)) {
+            ans = mid;      
+            low = mid + 1;
+        } else {
+            high = mid - 1; 
+        }
+    }
+    
+    return ans;
+}
