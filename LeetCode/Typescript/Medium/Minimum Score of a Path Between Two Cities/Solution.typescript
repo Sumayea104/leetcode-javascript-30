@@ -1,0 +1,32 @@
+function minScore(n: number, roads: number[][]): number {
+    
+    const adj: Map<number, [number, number][]> = new Map();
+    for (let i = 1; i <= n; i++) {
+        adj.set(i, []);
+    }
+    for (const [u, v, dist] of roads) {
+        adj.get(u)!.push([v, dist]);
+        adj.get(v)!.push([u, dist]);
+    }
+
+    let minScore = Infinity;
+    const visited = new Set<number>();
+    const queue: number[] = [1];
+    visited.add(1);
+
+    while (queue.length > 0) {
+        const curr = queue.shift()!;
+        
+        for (const [neighbor, dist] of adj.get(curr)!) {
+           
+            minScore = Math.min(minScore, dist);
+            
+            if (!visited.has(neighbor)) {
+                visited.add(neighbor);
+                queue.push(neighbor);
+            }
+        }
+    }
+
+    return minScore;
+}
