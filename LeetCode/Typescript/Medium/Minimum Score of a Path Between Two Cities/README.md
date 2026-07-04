@@ -1,6 +1,6 @@
 # 📝 Minimum Score of a Path Between Two Cities (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/?envType=daily-question&envId=2026-07-04)
+🔗 [Problem Link](https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Depth-First Search, Breadth-First Search, Union-Find, Graph Theory
 
 ### 🚀 Performance
-- **Runtime:** Successfully Evaluated
+- **Runtime:** N/A
 - **Memory:** N/A
 
 ---
