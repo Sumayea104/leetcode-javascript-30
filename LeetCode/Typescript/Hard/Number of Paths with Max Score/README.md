@@ -1,6 +1,6 @@
 # 📝 Number of Paths with Max Score (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/number-of-paths-with-max-score/?envType=daily-question&envId=2026-07-05)
+🔗 [Problem Link](https://leetcode.com/problems/number-of-paths-with-max-score)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Hard-red) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Dynamic Programming, Matrix
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
