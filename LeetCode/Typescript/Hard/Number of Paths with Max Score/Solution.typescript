@@ -1,46 +1,9 @@
-function pathsWithMaxScore(board: string[]): number[] {
-    const n = board.length;
-    const MOD = 1e9 + 7;
-    const dp: [number, number][][] = Array.from({ length: n }, () => 
-        Array.from({ length: n }, () => [-1, 0])
-    );
+        Array.from({ length: n }, () => [-1, 0])
+    );
+    n }, () => 
+    const dp: [number, number][][] = Array.from({ length: 
+    const n = board.length;
+    const MOD = 1e9 + 7;
 
-    dp[n - 1][n - 1] = [0, 1];
-
-    const dirs = [[1, 0], [0, 1], [1, 1]];
-
-    for (let r = n - 1; r >= 0; r--) {
-        for (let c = n - 1; c >= 0; c--) {
-
-            if (r === n - 1 && c === n - 1) continue;
-
-            if (board[r][c] === 'X') continue;
-
-            let maxPrevScore = -1;
-            let pathsCount = 0;
-            for (const [dr, dc] of dirs) {
-                const prevR = r + dr;
-                const prevC = c + dc;
-
-                if (prevR < n && prevC < n) {
-                    const [prevScore, prevCount] = dp[prevR][prevC];
-                    
-                    if (prevScore > maxPrevScore) {
-                        maxPrevScore = prevScore;
-                        pathsCount = prevCount;
-                    } else if (prevScore === maxPrevScore && maxPrevScore !== -1) {
-                        pathsCount = (pathsCount + prevCount) % MOD;
-                    }
-                }
-            }
-
-            if (maxPrevScore !== -1) {
-                const currentVal = (board[r][c] === 'E' || board[r][c] === 'S') ? 0 : parseInt(board[r][c], 10);
-                dp[r][c] = [maxPrevScore + currentVal, pathsCount];
-            }
-        }
-    }
-
-    const [finalScore, finalCount] = dp[0][0];
-    return finalScore === -1 ? [0, 0] : [finalScore, finalCount];
-}
+    dp[n - 1][n - 1] = [0, 1];
+function pathsWithMaxScore(board: string[]): number[] {
