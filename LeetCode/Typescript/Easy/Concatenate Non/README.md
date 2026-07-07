@@ -1,6 +1,6 @@
 # 📝 Concatenate Non (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i/?envType=daily-question&envId=2026-07-07)
+🔗 [Problem Link](https://leetcode.com/problems/concatenate-non-zero-digits-and-multiply-by-sum-i)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Math
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
