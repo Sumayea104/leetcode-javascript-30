@@ -1,0 +1,26 @@
+function sumAndMultiply(n: number): number {
+    if (n === 0) return 0;
+
+    let reversedX = 0;
+    let sum = 0;
+
+    // Step 1: Extract non-zero digits from right to left
+    while (n > 0) {
+        let digit = n % 10;
+        if (digit !== 0) {
+            reversedX = reversedX * 10 + digit;
+            sum += digit;
+        }
+        n = Math.floor(n / 10);
+    }
+
+    // Step 2: Reverse it back to get the original order of x
+    let x = 0;
+    let temp = reversedX;
+    while (temp > 0) {
+        x = x * 10 + (temp % 10);
+        temp = Math.floor(temp / 10);
+    }
+
+    return x * sum;
+}
