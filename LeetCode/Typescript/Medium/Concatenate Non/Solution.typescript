@@ -37,7 +37,7 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
     last = -1;
     for (let i = 0; i < m; i++) {
         if ((s.charCodeAt(i) & 15) !== 0) last = i;
-        prevPreNonZero[i] = last;
+        prevNonZero[i] = last;
     }
 
     const multiplyMod = (a: number, b: number): number => {
