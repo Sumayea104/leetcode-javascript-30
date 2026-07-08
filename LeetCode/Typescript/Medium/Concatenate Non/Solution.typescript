@@ -1,5 +1,5 @@
 function sumAndMultiply(s: string, queries: number[][]): number[] {
-    const MOD = 1e9 + 7;
+    const MOD = 1000000007;
     const m = s.length;
 
     const pow10 = new Int32Array(m + 1);
@@ -10,7 +10,7 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
 
     const sumPref = new Int32Array(m + 1);
     for (let i = 0; i < m; i++) {
-        sumPref[i + 1] = sumPref[i] + (s.charCodeAt(i) - 48);
+        sumPref[i + 1] = sumPref[i] + (s.charCodeAt(i) & 15);
     }
 
     const nzPos = new Int32Array(m).fill(-1); 
@@ -18,7 +18,7 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
     let nzCount = 0;
 
     for (let i = 0; i < m; i++) {
-        const digit = s.charCodeAt(i) - 48;
+        const digit = s.charCodeAt(i) & 15;
         if (digit !== 0) {
             nzCount++;
             nzPos[i] = nzCount;
@@ -29,26 +29,36 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
     const nextNonZero = new Int32Array(m);
     let last = -1;
     for (let i = m - 1; i >= 0; i--) {
-        if (s.charCodeAt(i) !== 48) last = i; 
+        if ((s.charCodeAt(i) & 15) !== 0) last = i;
         nextNonZero[i] = last;
     }
 
     const prevNonZero = new Int32Array(m);
     last = -1;
     for (let i = 0; i < m; i++) {
-        if (s.charCodeAt(i) !== 48) last = i;
-        prevNonZero[i] = last;
+        if ((s.charCodeAt(i) & 15) !== 0) last = i;
+        prevPreNonZero[i] = last;
     }
 
     const multiplyMod = (a: number, b: number): number => {
-        return Number((BigInt(a) * BigInt(b)) % BigInt(MOD));
+        const aHi = (a / 32768) | 0;
+        const aLo = a & 32767;
+        const bHi = (b / 32768) | 0;
+        const bLo = b & 32767;
+        
+        let res = (((aHi * bHi) % MOD) * 1073741824) % MOD;
+        res = (res + (((aHi * bLo + aLo * bHi) % MOD) * 32768)) % MOD;
+        res = (res + aLo * bLo) % MOD;
+        return res;
     };
 
-    const ans: number[] = new Array(queries.length);
-    for (let i = 0; i < queries.length; i++) {
-        const [l, r] = queries[i];
-        const firstNZ = nextNonZero[l];
-        const lastNZ = prevNonZero[r];
+    const qLen = queries.length;
+    const ans: number[] = new Array(qLen);
+    
+    for (let i = 0; i < qLen; i++) {
+        const q = queries[i];
+        const firstNZ = nextNonZero[q[0]];
+        const lastNZ = prevNonZero[q[1]];
 
         if (firstNZ === -1 || lastNZ === -1 || firstNZ > lastNZ) {
             ans[i] = 0;
@@ -57,12 +67,10 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
 
         const L_idx = nzPos[firstNZ];
         const R_idx = nzPos[lastNZ];
-        const numDigits = R_idx - L_idx + 1;
 
-        const subtrahend = multiplyMod(P[L_idx - 1], pow10[numDigits]);
-        let x = (P[R_idx] - subtrahend + MOD) % MOD;
-        
-        const currentSum = sumPref[r + 1] - sumPref[l];
+        const subtrahend = multiplyMod(P[L_idx - 1], pow10[R_idx - L_idx + 1]);
+        const x = (P[R_idx] - subtrahend + MOD) % MOD;
+        const currentSum = sumPref[q[1] + 1] - sumPref[q[0]];
 
         ans[i] = multiplyMod(x, currentSum);
     }
