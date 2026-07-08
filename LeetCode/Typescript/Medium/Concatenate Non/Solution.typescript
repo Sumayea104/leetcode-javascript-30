@@ -54,7 +54,10 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
         const R_idx = nzPos[lastNZ];
         const numDigits = R_idx - L_idx + 1;
 
-        let x = (P[R_idx] - (P[L_idx - 1] * pow10[numDigits]) % MOD + MOD) % MOD;
+        let x = Number(
+    (BigInt(P[R_idx]) - (BigInt(P[L_idx - 1]) * BigInt(pow10[numDigits])) % BigInt(MOD) + BigInt(MOD)) 
+    % BigInt(MOD)
+);
 
         const currentSum = sumPref[r + 1] - sumPref[l];
 
