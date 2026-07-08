@@ -1,0 +1,65 @@
+function sumAndMultiply(s: string, queries: number[][]): number[] {
+    const MOD = 1e9 + 7;
+    const m = s.length;
+
+    const pow10: number[] = new Array(m + 1);
+    pow10[0] = 1;
+    for (let i = 1; i <= m; i++) {
+        pow10[i] = (pow10[i - 1] * 10) % MOD;
+    }
+
+    const sumPref: number[] = new Array(m + 1).fill(0);
+    for (let i = 0; i < m; i++) {
+        sumPref[i + 1] = sumPref[i] + (s.charCodeAt(i) - 48);
+    }
+
+    const nzPos: number[] = new Array(m).fill(-1); 
+    const P: number[] = [0]; 
+    let nzCount = 0;
+
+    for (let i = 0; i < m; i++) {
+        const digit = s.charCodeAt(i) - 48;
+        if (digit !== 0) {
+            nzCount++;
+            nzPos[i] = nzCount;
+            P[nzCount] = (P[nzCount - 1] * 10 + digit) % MOD;
+        }
+    }
+
+    const nextNonZero: number[] = new Array(m);
+    let last = -1;
+    for (let i = m - 1; i >= 0; i--) {
+        if (s[i] !== '0') last = i;
+        nextNonZero[i] = last;
+    }
+
+    const prevNonZero: number[] = new Array(m);
+    last = -1;
+    for (let i = 0; i < m; i++) {
+        if (s[i] !== '0') last = i;
+        prevNonZero[i] = last;
+    }
+
+    const ans: number[] = [];
+    for (const [l, r] of queries) {
+        const firstNZ = nextNonZero[l];
+        const lastNZ = prevNonZero[r];
+
+        if (firstNZ === -1 || lastNZ === -1 || firstNZ > lastNZ) {
+            ans.push(0);
+            continue;
+        }
+
+        const L_idx = nzPos[firstNZ];
+        const R_idx = nzPos[lastNZ];
+        const numDigits = R_idx - L_idx + 1;
+
+        let x = (P[R_idx] - (P[L_idx - 1] * pow10[numDigits]) % MOD + MOD) % MOD;
+
+        const currentSum = sumPref[r + 1] - sumPref[l];
+
+        ans.push(Number((BigInt(x) * BigInt(currentSum)) % BigInt(MOD)));
+    }
+
+    return ans;
+}
