@@ -2,19 +2,19 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
     const MOD = 1e9 + 7;
     const m = s.length;
 
-    const pow10: number[] = new Array(m + 1);
+    const pow10 = new Int32Array(m + 1);
     pow10[0] = 1;
     for (let i = 1; i <= m; i++) {
         pow10[i] = (pow10[i - 1] * 10) % MOD;
     }
 
-    const sumPref: number[] = new Array(m + 1).fill(0);
+    const sumPref = new Int32Array(m + 1);
     for (let i = 0; i < m; i++) {
         sumPref[i + 1] = sumPref[i] + (s.charCodeAt(i) - 48);
     }
 
-    const nzPos: number[] = new Array(m).fill(-1); 
-    const P: number[] = [0]; 
+    const nzPos = new Int32Array(m).fill(-1); 
+    const P = new Int32Array(m + 1); 
     let nzCount = 0;
 
     for (let i = 0; i < m; i++) {
@@ -26,27 +26,32 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
         }
     }
 
-    const nextNonZero: number[] = new Array(m);
+    const nextNonZero = new Int32Array(m);
     let last = -1;
     for (let i = m - 1; i >= 0; i--) {
-        if (s[i] !== '0') last = i;
+        if (s.charCodeAt(i) !== 48) last = i; 
         nextNonZero[i] = last;
     }
 
-    const prevNonZero: number[] = new Array(m);
+    const prevNonZero = new Int32Array(m);
     last = -1;
     for (let i = 0; i < m; i++) {
-        if (s[i] !== '0') last = i;
+        if (s.charCodeAt(i) !== 48) last = i;
         prevNonZero[i] = last;
     }
 
-    const ans: number[] = [];
-    for (const [l, r] of queries) {
+    const multiplyMod = (a: number, b: number): number => {
+        return Number((BigInt(a) * BigInt(b)) % BigInt(MOD));
+    };
+
+    const ans: number[] = new Array(queries.length);
+    for (let i = 0; i < queries.length; i++) {
+        const [l, r] = queries[i];
         const firstNZ = nextNonZero[l];
         const lastNZ = prevNonZero[r];
 
         if (firstNZ === -1 || lastNZ === -1 || firstNZ > lastNZ) {
-            ans.push(0);
+            ans[i] = 0;
             continue;
         }
 
@@ -54,14 +59,12 @@ function sumAndMultiply(s: string, queries: number[][]): number[] {
         const R_idx = nzPos[lastNZ];
         const numDigits = R_idx - L_idx + 1;
 
-        let x = Number(
-    (BigInt(P[R_idx]) - (BigInt(P[L_idx - 1]) * BigInt(pow10[numDigits])) % BigInt(MOD) + BigInt(MOD)) 
-    % BigInt(MOD)
-);
-
+        const subtrahend = multiplyMod(P[L_idx - 1], pow10[numDigits]);
+        let x = (P[R_idx] - subtrahend + MOD) % MOD;
+        
         const currentSum = sumPref[r + 1] - sumPref[l];
 
-        ans.push(Number((BigInt(x) * BigInt(currentSum)) % BigInt(MOD)));
+        ans[i] = multiplyMod(x, currentSum);
     }
 
     return ans;
