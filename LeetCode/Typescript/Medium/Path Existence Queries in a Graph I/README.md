@@ -1,6 +1,6 @@
 # 📝 Path Existence Queries in a Graph I (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/path-existence-queries-in-a-graph-i/?envType=daily-question&envId=2026-07-09)
+🔗 [Problem Link](https://leetcode.com/problems/path-existence-queries-in-a-graph-i)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Hash Table, Binary Search, Union-Find, Graph Theory
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
