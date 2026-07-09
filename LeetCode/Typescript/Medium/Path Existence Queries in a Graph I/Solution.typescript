@@ -1,0 +1,21 @@
+function pathExistenceQueries(n: number, nums: number[], maxDiff: number, queries: number[][]): boolean[] {
+    const comp = new Int32Array(n);
+    let currentCompId = 0;
+    
+    comp[0] = 0;
+    for (let i = 1; i < n; i++) {
+        if (nums[i] - nums[i - 1] > maxDiff) {
+            currentCompId++;
+        }
+        comp[i] = currentCompId;
+    }
+    
+    const ans: boolean[] = [];
+    for (let i = 0; i < queries.length; i++) {
+        const u = queries[i][0];
+        const v = queries[i][1];
+        ans.push(comp[u] === comp[v]);
+    }
+    
+    return ans;
+}
