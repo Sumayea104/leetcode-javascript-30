@@ -1,14 +1,14 @@
 function pathExistenceQueries(n: number, nums: number[], maxDiff: number, queries: number[][]): number[] {
-    const idx: number[] = Array.from({ length: n }, (_, i) => i);
+    const idx = Array.from({ length: n }, (_, i) => i);
     idx.sort((a, b) => nums[a] - nums[b]);
 
-    const pos: number[] = new Array(n);
+    const pos = new Int32Array(n);
     for (let i = 0; i < n; i++) {
         pos[idx[i]] = i;
     }
 
-    const m = n.toString(2).length;
-    const f: number[][] = Array.from({ length: n }, () => Array(m).fill(0));
+    const m = 32 - Math.clz32(n);
+    const f = Array.from({ length: n }, () => new Int32Array(m));
 
     let left = 0;
     for (let i = 0; i < n; i++) {
@@ -31,7 +31,7 @@ function pathExistenceQueries(n: number, nums: number[], maxDiff: number, querie
         let y = pos[b];
 
         if (x > y) {
-            [x, y] = [y, x];
+            const tmp = x; x = y; y = tmp;
         }
 
         if (x === y) {
