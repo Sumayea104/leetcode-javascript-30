@@ -1,0 +1,61 @@
+function pathExistenceQueries(n: number, nums: number[], maxDiff: number, queries: number[][]): number[] {
+    const sortedNodes: number[] = Array.from({ length: n }, (_, i) => i);
+    sortedNodes.sort((a, b) => nums[a] - nums[b]);
+
+    const posInSorted = new Int32Array(n);
+    for (let i = 0; i < n; i++) {
+        posInSorted[sortedNodes[i]] = i;
+    }
+
+    const LOG = 18;
+    const up = Array.from({ length: n }, () => new Int32Array(LOG));
+
+    let r = 0;
+    for (let l = 0; l < n; l++) {
+        while (r < n && nums[sortedNodes[r]] - nums[sortedNodes[l]] <= maxDiff) {
+            r++;
+        }
+        up[l][0] = r - 1;
+    }
+
+    for (let j = 1; j < LOG; j++) {
+        for (let i = 0; i < n; i++) {
+            up[i][j] = up[up[i][j - 1]][j - 1];
+        }
+    }
+
+    const ans: number[] = [];
+
+    for (const [u, v] of queries) {
+        if (u === v) {
+            ans.push(0);
+            continue;
+        }
+
+        let start = posInSorted[u];
+        let end = posInSorted[v];
+
+        if (start > end) {
+            [start, end] = [end, start];
+        }
+
+        if (up[start][LOG - 1] < end) {
+            ans.push(-1);
+            continue;
+        }
+
+        let steps = 0;
+        let curr = start;
+
+        for (let j = LOG - 1; j >= 0; j--) {
+            if (up[curr][j] < end) {
+                steps += (1 << j);
+                curr = up[curr][j];
+            }
+        }
+
+        ans.push(steps + 1);
+    }
+
+    return ans;
+}
