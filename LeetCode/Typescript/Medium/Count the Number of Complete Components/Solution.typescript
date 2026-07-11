@@ -1,0 +1,50 @@
+function countCompleteComponents(n: number, edges: number[][]): number {
+
+    const adj: number[][] = Array.from({ length: n }, () => []);
+    const degrees: number[] = new Array(n).fill(0);
+    
+    for (const [u, v] of edges) {
+        adj[u].push(v);
+        adj[v].push(u);
+        degrees[u]++;
+        degrees[v]++;
+    }
+    
+    const visited = new Array(n).fill(false);
+    let completeComponentCount = 0;
+    
+    for (let i = 0; i < n; i++) {
+        if (!visited[i]) {
+            const componentNodes: number[] = [];
+            
+            dfs(i, adj, visited, componentNodes);
+            
+            const componentSize = componentNodes.length;
+            let isComplete = true;
+            
+            for (const node of componentNodes) {
+                if (degrees[node] !== componentSize - 1) {
+                    isComplete = false;
+                    break;
+                }
+            }
+            
+            if (isComplete) {
+                completeComponentCount++;
+            }
+        }
+    }
+    
+    return completeComponentCount;
+}
+
+function dfs(node: number, adj: number[][], visited: boolean[], componentNodes: number[]): void {
+    visited[node] = true;
+    componentNodes.push(node);
+    
+    for (const neighbor of adj[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, adj, visited, componentNodes);
+        }
+    }
+}
