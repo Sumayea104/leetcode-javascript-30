@@ -1,6 +1,6 @@
 # 📝 Count the Number of Complete Components (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/count-the-number-of-complete-components/?envType=daily-question&envId=2026-07-11)
+🔗 [Problem Link](https://leetcode.com/problems/count-the-number-of-complete-components)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Depth-First Search, Breadth-First Search, Union-Find, Graph Theory
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
