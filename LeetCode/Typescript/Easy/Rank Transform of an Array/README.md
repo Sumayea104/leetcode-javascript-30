@@ -1,6 +1,6 @@
 # 📝 Rank Transform of an Array (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/rank-transform-of-an-array/?envType=daily-question&envId=2026-07-12)
+🔗 [Problem Link](https://leetcode.com/problems/rank-transform-of-an-array)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Hash Table, Sorting
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
