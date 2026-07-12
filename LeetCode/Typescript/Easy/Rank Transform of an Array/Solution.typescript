@@ -1,0 +1,9 @@
+function arrayRankTransform(arr: number[]): number[] {
+    const sortedUnique = [...new Set(arr)].sort((a, b) => a - b);
+  
+    const rankMap = new Map<number, number>();
+    for (let i = 0; i < sortedUnique.length; i++) {
+        rankMap.set(sortedUnique[i], i + 1);
+    }
+    return arr.map(num => rankMap.get(num)!);
+}
