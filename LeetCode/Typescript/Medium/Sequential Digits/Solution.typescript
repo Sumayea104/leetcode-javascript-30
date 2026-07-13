@@ -1,0 +1,21 @@
+function sequentialDigits(low: number, high: number): number[] {
+    const sample = "123456789";
+    const result: number[] = [];
+    
+    const minLen = low.toString().length;
+    const maxLen = high.toString().length;
+
+    for (let len = minLen; len <= maxLen; len++) {
+ 
+        for (let start = 0; start <= sample.length - len; start++) {
+            const substring = sample.substring(start, start + len);
+            const num = parseInt(substring, 10);
+
+            if (num >= low && num <= high) {
+                result.push(num);
+            }
+        }
+    }
+    
+    return result;
+}
