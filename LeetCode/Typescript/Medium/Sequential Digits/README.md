@@ -1,6 +1,6 @@
 # 📝 Sequential Digits (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/sequential-digits/?envType=daily-question&envId=2026-07-13)
+🔗 [Problem Link](https://leetcode.com/problems/sequential-digits)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Enumeration
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
