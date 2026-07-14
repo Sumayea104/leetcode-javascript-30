@@ -8,7 +8,7 @@
 Array, Math, Dynamic Programming, Number Theory
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
