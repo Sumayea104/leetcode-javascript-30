@@ -3,7 +3,6 @@ function subsequencePairCount(nums: number[]): number {
     const SIZE = 201;
     const TOTAL = SIZE * SIZE;
 
-    // Precompute gcd table
     const gcd = Array.from({ length: SIZE }, () => new Int16Array(SIZE));
 
     for (let i = 0; i < SIZE; i++) {
@@ -24,7 +23,7 @@ function subsequencePairCount(nums: number[]): number {
     let dp = new Int32Array(TOTAL);
     let next = new Int32Array(TOTAL);
 
-    dp[0] = 1; // (0,0)
+    dp[0] = 1; 
 
     for (const x of nums) {
 
