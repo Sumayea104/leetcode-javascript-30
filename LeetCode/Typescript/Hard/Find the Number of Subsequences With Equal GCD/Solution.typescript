@@ -1,14 +1,13 @@
 function subsequencePairCount(nums: number[]): number {
     const MOD = 1_000_000_007;
-    const MAX = 200;
+    const SIZE = 201;
+    const TOTAL = SIZE * SIZE;
 
-    // Precompute all possible gcd values.
-    const gcd = Array.from({ length: MAX + 1 }, () =>
-        new Array(MAX + 1).fill(0)
-    );
+    // Precompute gcd table
+    const gcd = Array.from({ length: SIZE }, () => new Int16Array(SIZE));
 
-    for (let i = 0; i <= MAX; i++) {
-        for (let j = 0; j <= MAX; j++) {
+    for (let i = 0; i < SIZE; i++) {
+        for (let j = 0; j < SIZE; j++) {
             let a = i;
             let b = j;
 
@@ -22,45 +21,52 @@ function subsequencePairCount(nums: number[]): number {
         }
     }
 
-    let dp = Array.from({ length: MAX + 1 }, () =>
-        new Array(MAX + 1).fill(0)
-    );
+    let dp = new Int32Array(TOTAL);
+    let next = new Int32Array(TOTAL);
 
-    dp[0][0] = 1;
+    dp[0] = 1; // (0,0)
 
     for (const x of nums) {
-        const next = Array.from({ length: MAX + 1 }, () =>
-            new Array(MAX + 1).fill(0)
-        );
 
-        for (let g1 = 0; g1 <= MAX; g1++) {
-            for (let g2 = 0; g2 <= MAX; g2++) {
+        next.fill(0);
 
-                const ways = dp[g1][g2];
+        for (let g1 = 0; g1 < SIZE; g1++) {
+
+            const row = g1 * SIZE;
+            const ng1 = gcd[g1][x] * SIZE;
+
+            for (let g2 = 0; g2 < SIZE; g2++) {
+
+                const idx = row + g2;
+                const ways = dp[idx];
 
                 if (ways === 0) continue;
 
-                // Option 1: Ignore current number
-                next[g1][g2] = (next[g1][g2] + ways) % MOD;
+                // 1. Ignore current number
+                let v = next[idx] + ways;
+                next[idx] = v >= MOD ? v - MOD : v;
 
-                // Option 2: Add to first subsequence
-                const ng1 = gcd[g1][x];
-                next[ng1][g2] = (next[ng1][g2] + ways) % MOD;
+                // 2. Put into first subsequence
+                const idx1 = ng1 + g2;
+                v = next[idx1] + ways;
+                next[idx1] = v >= MOD ? v - MOD : v;
 
-                // Option 3: Add to second subsequence
-                const ng2 = gcd[g2][x];
-                next[g1][ng2] = (next[g1][ng2] + ways) % MOD;
+                // 3. Put into second subsequence
+                const idx2 = row + gcd[g2][x];
+                v = next[idx2] + ways;
+                next[idx2] = v >= MOD ? v - MOD : v;
             }
         }
 
-        dp = next;
+        [dp, next] = [next, dp];
     }
 
-    let answer = 0;
+    let ans = 0;
 
-    for (let g = 1; g <= MAX; g++) {
-        answer = (answer + dp[g][g]) % MOD;
+    for (let g = 1; g < SIZE; g++) {
+        ans += dp[g * SIZE + g];
+        if (ans >= MOD) ans -= MOD;
     }
 
-    return answer;
+    return ans;
 }
