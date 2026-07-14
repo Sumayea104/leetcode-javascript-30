@@ -1,6 +1,6 @@
 # 📝 Find the Number of Subsequences With Equal GCD (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/find-the-number-of-subsequences-with-equal-gcd/?envType=daily-question&envId=2026-07-14)
+🔗 [Problem Link](https://leetcode.com/problems/find-the-number-of-subsequences-with-equal-gcd)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Hard-red) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
