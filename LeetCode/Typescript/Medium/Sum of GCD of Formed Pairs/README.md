@@ -1,6 +1,6 @@
 # 📝 Sum of GCD of Formed Pairs (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/sum-of-gcd-of-formed-pairs/?envType=daily-question&envId=2026-07-16)
+🔗 [Problem Link](https://leetcode.com/problems/sum-of-gcd-of-formed-pairs)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-orange) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
@@ -8,7 +8,7 @@
 Array, Math, Two Pointers, Sorting, Simulation, Number Theory
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
