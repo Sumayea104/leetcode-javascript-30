@@ -8,7 +8,7 @@
 Array, Hash Table, Math, Binary Search, Combinatorics, Counting, Number Theory, Prefix Sum
 
 ### 🚀 Performance
-- **Runtime:** N/A
+- **Runtime:** Successfully Evaluated
 - **Memory:** N/A
 
 ---
