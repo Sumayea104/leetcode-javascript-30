@@ -1,0 +1,81 @@
+function gcdValues(nums: number[], queries: number[]): number[] {
+    const maxValue = Math.max(...nums);
+
+    const exactGcdPairs = computeExactGcdPairs(nums, maxValue);
+    const { gcdValues, prefixCounts } = buildPrefixCounts(exactGcdPairs);
+
+    return queries.map(query => {
+        const index = upperBound(prefixCounts, BigInt(query));
+        return gcdValues[index];
+    });
+}
+
+function computeExactGcdPairs(nums: number[], maxValue: number): bigint[] {
+    // frequency[value] = occurrences of value
+    const frequency = new Array<number>(maxValue + 1).fill(0);
+    for (const num of nums) {
+        frequency[num]++;
+    }
+
+    // divisibleCount[g] = how many numbers are divisible by g
+    const divisibleCount = new Array<number>(maxValue + 1).fill(0);
+
+    for (let g = 1; g <= maxValue; g++) {
+        for (let multiple = g; multiple <= maxValue; multiple += g) {
+            divisibleCount[g] += frequency[multiple];
+        }
+    }
+
+    // exactPairs[g] = number of pairs whose gcd is exactly g
+    const exactPairs = new Array<bigint>(maxValue + 1).fill(0n);
+
+    for (let g = maxValue; g >= 1; g--) {
+        const count = BigInt(divisibleCount[g]);
+
+        // All pairs whose gcd is a multiple of g
+        let pairs = (count * (count - 1n)) / 2n;
+
+        // Remove pairs already assigned to larger gcds
+        for (let multiple = g * 2; multiple <= maxValue; multiple += g) {
+            pairs -= exactPairs[multiple];
+        }
+
+        exactPairs[g] = pairs;
+    }
+
+    return exactPairs;
+}
+
+function buildPrefixCounts(exactPairs: bigint[]) {
+    const gcdValues: number[] = [];
+    const prefixCounts: bigint[] = [];
+
+    let prefix = 0n;
+
+    for (let gcd = 1; gcd < exactPairs.length; gcd++) {
+        if (exactPairs[gcd] === 0n) continue;
+
+        prefix += exactPairs[gcd];
+        gcdValues.push(gcd);
+        prefixCounts.push(prefix);
+    }
+
+    return { gcdValues, prefixCounts };
+}
+
+function upperBound(prefix: bigint[], target: bigint): number {
+    let left = 0;
+    let right = prefix.length - 1;
+
+    while (left < right) {
+        const mid = left + ((right - left) >> 1);
+
+        if (prefix[mid] > target) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return left;
+}
