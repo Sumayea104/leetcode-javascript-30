@@ -1,4 +1,5 @@
-from typing import List
+class Solution:
+    def gcdValues(self, nums, queries):
 
 
 class Solution:
