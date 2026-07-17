@@ -1,6 +1,6 @@
 # 📝 Sorted GCD Pair Queries (LeetCode)
 
-🔗 [Problem Link](https://leetcode.com/problems/sorted-gcd-pair-queries)
+🔗 [Problem Link](https://leetcode.com/problems/sorted-gcd-pair-queries/?envType=daily-question&envId=2026-07-17)
 
 ![Difficulty](https://img.shields.io/badge/Difficulty-Hard-red) ![Language](https://img.shields.io/badge/Language-Typescript-blue)
 
