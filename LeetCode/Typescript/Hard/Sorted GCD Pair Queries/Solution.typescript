@@ -1,81 +1,66 @@
 function gcdValues(nums: number[], queries: number[]): number[] {
-    const maxValue = Math.max(...nums);
+    const maxVal = Math.max(...nums);
 
-    const exactGcdPairs = computeExactGcdPairs(nums, maxValue);
-    const { gcdValues, prefixCounts } = buildPrefixCounts(exactGcdPairs);
-
-    return queries.map(query => {
-        const index = upperBound(prefixCounts, BigInt(query));
-        return gcdValues[index];
-    });
-}
-
-function computeExactGcdPairs(nums: number[], maxValue: number): bigint[] {
     // frequency[value] = occurrences of value
-    const frequency = new Array<number>(maxValue + 1).fill(0);
-    for (const num of nums) {
-        frequency[num]++;
-    }
+    const freq = new Array<number>(maxVal + 1).fill(0);
+    for (const num of nums) freq[num]++;
 
-    // divisibleCount[g] = how many numbers are divisible by g
-    const divisibleCount = new Array<number>(maxValue + 1).fill(0);
-
-    for (let g = 1; g <= maxValue; g++) {
-        for (let multiple = g; multiple <= maxValue; multiple += g) {
-            divisibleCount[g] += frequency[multiple];
+    // divisible[i] = how many numbers are divisible by i
+    const divisible = new Array<number>(maxVal + 1).fill(0);
+    for (let i = 1; i <= maxVal; i++) {
+        for (let j = i; j <= maxVal; j += i) {
+            divisible[i] += freq[j];
         }
     }
 
-    // exactPairs[g] = number of pairs whose gcd is exactly g
-    const exactPairs = new Array<bigint>(maxValue + 1).fill(0n);
+    // exact[i] = number of pairs with gcd exactly i
+    const exact = new Array<number>(maxVal + 1).fill(0);
 
-    for (let g = maxValue; g >= 1; g--) {
-        const count = BigInt(divisibleCount[g]);
+    for (let i = maxVal; i >= 1; i--) {
+        const cnt = divisible[i];
+        let pairs = (cnt * (cnt - 1)) / 2;
 
-        // All pairs whose gcd is a multiple of g
-        let pairs = (count * (count - 1n)) / 2n;
-
-        // Remove pairs already assigned to larger gcds
-        for (let multiple = g * 2; multiple <= maxValue; multiple += g) {
-            pairs -= exactPairs[multiple];
+        for (let j = i + i; j <= maxVal; j += i) {
+            pairs -= exact[j];
         }
 
-        exactPairs[g] = pairs;
+        exact[i] = pairs;
     }
 
-    return exactPairs;
-}
+    // Prefix counts
+    const values: number[] = [];
+    const prefix: number[] = [];
 
-function buildPrefixCounts(exactPairs: bigint[]) {
-    const gcdValues: number[] = [];
-    const prefixCounts: bigint[] = [];
+    let total = 0;
 
-    let prefix = 0n;
-
-    for (let gcd = 1; gcd < exactPairs.length; gcd++) {
-        if (exactPairs[gcd] === 0n) continue;
-
-        prefix += exactPairs[gcd];
-        gcdValues.push(gcd);
-        prefixCounts.push(prefix);
+    for (let g = 1; g <= maxVal; g++) {
+        if (exact[g] === 0) continue;
+        total += exact[g];
+        values.push(g);
+        prefix.push(total);
     }
 
-    return { gcdValues, prefixCounts };
-}
+    // Answer queries
+    const ans = new Array<number>(queries.length);
 
-function upperBound(prefix: bigint[], target: bigint): number {
-    let left = 0;
-    let right = prefix.length - 1;
+    for (let k = 0; k < queries.length; k++) {
+        const target = queries[k];
 
-    while (left < right) {
-        const mid = left + ((right - left) >> 1);
+        let left = 0;
+        let right = prefix.length - 1;
 
-        if (prefix[mid] > target) {
-            right = mid;
-        } else {
-            left = mid + 1;
+        while (left < right) {
+            const mid = (left + right) >> 1;
+
+            if (prefix[mid] > target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
         }
+
+        ans[k] = values[left];
     }
 
-    return left;
+    return ans;
 }
